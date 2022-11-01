@@ -6,6 +6,9 @@ import 'package:movie_lister_app/features/splash/splash_screen.dart';
 import 'package:movie_lister_app/features/top_movie/view/top_movie_screen.dart';
 import 'package:movie_lister_app/util/widgets/dismiss_keyboard_on_screen_tap.dart';
 
+import 'package:page_transition/page_transition.dart';
+//type: PageTransitionType.scale
+
 class RouteGenerator {
   static const initialRoute = SplashScreen.id;
 
