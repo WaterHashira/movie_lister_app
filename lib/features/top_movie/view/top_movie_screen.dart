@@ -81,7 +81,7 @@ class _TopMovieScreenState extends State<TopMovieScreen> {
                                           context: context,
                                           builder: (context) {
                                             return _searchModalSheet(
-                                                screenSize);
+                                                screenSize, context);
                                           });
                                     },
                                     icon: SvgPicture.asset(
@@ -198,37 +198,41 @@ class _TopMovieScreenState extends State<TopMovieScreen> {
   }
 
   //searchTextField ModalSheet method
-  Widget _searchModalSheet(Size screenSize) {
+  Widget _searchModalSheet(Size screenSize, BuildContext context) {
     return Container(
       height: screenSize.height / 3,
       padding: const EdgeInsets.all(30),
       color: ColorConstants.appGeneralBackgroundColor,
       child: Center(
-        child: TextField(
-          controller: _searchController,
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              icon: const Icon(
-                Icons.search,
-                color: Colors.black,
+        child: Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  int searchMovieIndex = generics.movieNameIndexFinder(
+                      _searchController.text, movieList);
+                  Navigator.of(context).pop();
+                  if (searchMovieIndex >= 0) {
+                    _scrollToIndex(searchMovieIndex);
+                  } else {
+                    ErrorSnackbar().showErrorSnackBar('Oops! Movie not Found');
+                  }
+                },
               ),
-              onPressed: () {
-                int searchMovieIndex = generics.movieNameIndexFinder(
-                    _searchController.text, movieList);
-                Navigator.of(context).pop();
-                if (searchMovieIndex >= 0) {
-                  _scrollToIndex(searchMovieIndex);
-                } else {
-                  ErrorSnackbar().showErrorSnackBar('Oops! Movie not Found');
-                }
-              },
+              focusedBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderSide: BorderSide(color: Colors.blue)),
+              filled: true,
+              fillColor: Colors.white,
+              hintText: 'Movie Name',
             ),
-            focusedBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                borderSide: BorderSide(color: Colors.blue)),
-            filled: true,
-            fillColor: Colors.white,
-            hintText: 'Movie Name',
           ),
         ),
       ),

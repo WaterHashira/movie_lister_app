@@ -11,8 +11,7 @@ class AppTheme {
       size * _deviceWidth / _designFileWidth;
 
   static const _defaultElevation = 2.5;
-  static const _defaultFontFamily =
-      'Inter'; //TODO: change it to font family of the designs
+  static const _defaultFontFamily = 'Inter';
 
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorConstants.appGeneralBackgroundColor,
