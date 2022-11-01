@@ -39,6 +39,9 @@ class MovieCard extends StatelessWidget {
               flex: 1,
               child: Container(
                 decoration: BoxDecoration(
+                  color: (topMovie)
+                      ? ColorConstants.activeRatingBarColor
+                      : ColorConstants.inactiveRatingBarColor,
                   image: DecorationImage(
                     image: NetworkImage(
                       posterImageUrl ?? Constants.defaultMoviePosterUrl,

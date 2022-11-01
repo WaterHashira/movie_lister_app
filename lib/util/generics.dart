@@ -44,4 +44,15 @@ class Generics {
     }
     return -1;
   }
+
+//movie runtime generator method
+  String runtimeGeneratorMethod(int runtimeMinutes) {
+    if (runtimeMinutes == 0) {
+      return 'Not available';
+    } else {
+      var d = Duration(minutes: runtimeMinutes);
+      List<String> parts = d.toString().split(':');
+      return '${parts[0].padLeft(2, '0')}h ${parts[1].padLeft(2, '0')}m';
+    }
+  }
 }

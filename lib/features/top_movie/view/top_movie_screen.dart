@@ -71,7 +71,6 @@ class _TopMovieScreenState extends State<TopMovieScreen> {
                               //crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                //TODO: change this text height to 48 pixels
                                 Text(
                                   'Top Movies',
                                   style: Theme.of(context).textTheme.headline1,
@@ -161,9 +160,6 @@ class _TopMovieScreenState extends State<TopMovieScreen> {
                                                                   movieList[
                                                                           index]
                                                                       .release_date),
-                                                          //There is no movie api in docs that shows movie runtime hence the static value
-                                                          'movieLength':
-                                                              '2h 5m',
                                                           'movieRating': generics
                                                               .movieRater(movieList[
                                                                       index]

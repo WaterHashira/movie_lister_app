@@ -27,7 +27,6 @@ class RouteGenerator {
           movieName: args['movieName'],
           movieGenre: args['movieGenre'],
           releseYear: args['releseYear'],
-          movieLength: args['movieLength'],
           movieRating: args?['movieRating'],
           movieDescription: args['movieDescription'],
           movieList: args['movieList'],

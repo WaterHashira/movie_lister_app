@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 class ColorConstants {
   static const activeCardColor = Color(0XFF007CFF);
   static const inactiveCardColor = Color(0XFF1B1C2A);
+
   static const appGeneralBackgroundColor = Color(0XFF252634);
   static const bottomNavigtionSelectedItemColor = Color(0XFF1F8CFF);
 
