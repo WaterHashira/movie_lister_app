@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_lister_app/features/top_movie/view/top_movie_screen.dart';
+import 'package:movie_lister_app/features/top_movie/view/widget/movie_card.dart';
 import 'package:movie_lister_app/util/globals.dart';
 import 'package:movie_lister_app/util/route_genertor.dart';
 import 'package:movie_lister_app/util/theme/app_theme.dart';
@@ -22,8 +23,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: Globals.navigatorKey,
       scaffoldMessengerKey: Globals.scaffoldMessengerKey,
       initialRoute: RouteGenerator.initialRoute,
-      //home: const TopMovieScreen(),
-      /*Scaffold(
+      /*home: Scaffold(
         body: Container(
           child: Center(
             child: Container(
@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
                 releseYear: '2019',
                 topMovie: true,
                 movieRating: 3,
+                onPressed: () {},
               ),
             ),
           ),

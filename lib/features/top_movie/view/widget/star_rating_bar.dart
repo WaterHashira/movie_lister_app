@@ -31,7 +31,10 @@ class StarRatingBar extends StatelessWidget {
               itemBuilder: (context, _) {
                 return Row(
                   children: <Widget>[
-                    SvgPicture.asset('assets/icons/rating_star_icon.svg'),
+                    SvgPicture.asset(
+                      'assets/icons/rating_star_icon.svg',
+                      height: 20,
+                    ),
                     const SizedBox(
                       width: 3,
                     )

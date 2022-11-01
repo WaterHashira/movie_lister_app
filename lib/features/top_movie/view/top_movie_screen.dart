@@ -34,6 +34,8 @@ class _TopMovieScreenState extends State<TopMovieScreen> {
 
   final ScrollController _scrollController = ScrollController();
 
+  final double _movieCardHeight = 190;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -109,7 +111,7 @@ class _TopMovieScreenState extends State<TopMovieScreen> {
                                               CrossAxisAlignment.stretch,
                                           children: <Widget>[
                                             SizedBox(
-                                              height: 170,
+                                              height: _movieCardHeight,
                                               child: MovieCard(
                                                   posterImageUrl:
                                                       '${Constants.moviePosterBaseUrl}${movieList[index].poster_url}',
@@ -130,9 +132,7 @@ class _TopMovieScreenState extends State<TopMovieScreen> {
                                                               .movie_rating),
                                                   topMovie:
                                                       (movieList[index].id ==
-                                                              movieList[0].id)
-                                                          ? true
-                                                          : false,
+                                                          movieList[0].id),
                                                   onPressed: () {
                                                     Navigator.pushNamed(context,
                                                         MovieDetailsScreen.id,
@@ -241,7 +241,7 @@ class _TopMovieScreenState extends State<TopMovieScreen> {
 
   // Method that scroll to an item
   void _scrollToIndex(int index) {
-    _scrollController.animateTo((170 * index).toDouble(),
+    _scrollController.animateTo((_movieCardHeight * index).toDouble(),
         duration: const Duration(seconds: 2), curve: Curves.easeIn);
   }
 }

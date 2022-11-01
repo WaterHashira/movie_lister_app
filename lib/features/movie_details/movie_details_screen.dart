@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svgProvider;
 
 import 'package:movie_lister_app/features/top_movie/models/genre.dart';
 import 'package:movie_lister_app/features/top_movie/models/movie.dart';
@@ -52,6 +51,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
+    const double _movieCardHeight = 200;
+
     Generics generics = Generics();
 
     return SafeArea(
@@ -97,7 +98,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     SizedBox(
                       height: screenSize.height / 3,
                     ),
-                    (widget.movieId == widget.movieList[0].id)
+                    (widget.topMovie)
                         ? Text(
                             'Top movie of the week',
                             textAlign: TextAlign.left,
@@ -109,20 +110,17 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     ),
                     Row(
                       children: <Widget>[
-                        (widget.movieId == widget.movieList[0].id)
-                            ? Container(
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: svgProvider.Svg(
-                                        'assets/icons/top_movie_icon.svg'),
-                                    fit: BoxFit.cover,
-                                  ),
+                        (widget.topMovie)
+                            ? SizedBox(
+                                child: SvgPicture.asset(
+                                  'assets/icons/top_movie_icon.svg',
+                                  height: 50,
                                 ),
                               )
                             : const SizedBox(
                                 width: 0,
                               ),
-                        (widget.movieId == widget.movieList[0].id)
+                        (widget.topMovie)
                             ? const SizedBox(
                                 width: 20,
                               )
@@ -141,7 +139,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       height: 10,
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                        padding:
+                            EdgeInsets.only(left: (widget.topMovie) ? 70 : 20),
                         child: Text(
                           '${widget.releseYear} • ${widget.movieGenre} • ${widget.movieLength}',
                           style: Theme.of(context).textTheme.headline4,
@@ -150,7 +149,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       height: 15,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding:
+                          EdgeInsets.only(left: (widget.topMovie) ? 70 : 20),
                       child: Text(
                         widget.movieDescription ?? 'Description not Available!',
                         textAlign: TextAlign.left,
@@ -164,7 +164,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                         ? Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
-                                padding: const EdgeInsets.only(left: 20),
+                                padding: EdgeInsets.only(
+                                    left: (widget.topMovie) ? 70 : 20),
                                 child: StarRatingBar(
                                   movieRating: widget.movieRating!,
                                   ratingBarBackgroundColor:
@@ -182,7 +183,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       height: 20,
                     ),
                     SizedBox(
-                      height: 185 * widget.movieList.length.toDouble(),
+                      height: 220 * widget.movieList.length.toDouble(),
                       child: AnimationLimiter(
                         child: ListView.builder(
                           shrinkWrap: true,
@@ -193,79 +194,80 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               position: index,
                               duration: const Duration(milliseconds: 375),
                               child: SlideAnimation(
-                                verticalOffset: 50.0,
+                                verticalOffset: 38.0,
                                 child: FadeInAnimation(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: <Widget>[
                                       SizedBox(
-                                        height: 168,
-                                        child: MovieCard(
-                                            posterImageUrl:
-                                                '${Constants.moviePosterBaseUrl}${widget.movieList[index].poster_url}',
-                                            movieName: widget
-                                                .movieList[index].movie_name,
-                                            movieGenre:
-                                                generics.genreNameFinder(
-                                                    widget.genreList,
-                                                    widget.movieList[index]
-                                                        .genre_id_list),
-                                            releseYear:
-                                                generics.releseYearFinder(widget
-                                                    .movieList[index]
-                                                    .release_date),
-                                            movieRating: generics.movieRater(
-                                                widget.movieList[index]
-                                                    .movie_rating),
-                                            topMovie:
-                                                (widget.movieList[index].id ==
-                                                        widget.movieList[0].id)
-                                                    ? true
-                                                    : false,
-                                            onPressed: () {
-                                              Navigator.pushNamed(context,
-                                                  MovieDetailsScreen.id,
-                                                  arguments: {
-                                                    'movieId': widget
-                                                        .movieList[index].id,
-                                                    'moviePoster':
-                                                        '${Constants.moviePosterBaseUrl}${widget.movieList[index].poster_url}',
-                                                    'topMovie': (widget
-                                                                .movieId ==
-                                                            widget.movieList[0]
-                                                                .id)
-                                                        ? true
-                                                        : false,
-                                                    'movieName': widget
-                                                        .movieList[index]
-                                                        .movie_name,
-                                                    'movieGenre': generics
-                                                        .genreNameFinder(
-                                                            widget.genreList,
-                                                            widget
-                                                                .movieList[
-                                                                    index]
-                                                                .genre_id_list),
-                                                    'releseYear': generics
-                                                        .releseYearFinder(widget
-                                                            .movieList[index]
-                                                            .release_date),
-                                                    'movieLength': '2h 5m',
-                                                    'movieRating': generics
-                                                        .movieRater(widget
-                                                            .movieList[index]
-                                                            .movie_rating),
-                                                    'movieDescription': widget
-                                                        .movieList[index]
-                                                        .movieDesc,
-                                                    'movieList':
-                                                        widget.movieList,
-                                                    'genreList':
-                                                        widget.genreList
-                                                  });
-                                            }),
-                                      ),
+                                          height: _movieCardHeight,
+                                          child: MovieCard(
+                                              posterImageUrl:
+                                                  '${Constants.moviePosterBaseUrl}${widget.movieList[index].poster_url}',
+                                              movieName: widget
+                                                  .movieList[index].movie_name,
+                                              movieGenre:
+                                                  generics.genreNameFinder(
+                                                      widget.genreList,
+                                                      widget.movieList[index]
+                                                          .genre_id_list),
+                                              releseYear: generics
+                                                  .releseYearFinder(widget
+                                                      .movieList[index]
+                                                      .release_date),
+                                              movieRating: generics.movieRater(
+                                                  widget.movieList[index]
+                                                      .movie_rating),
+                                              topMovie: (widget.movieList[index]
+                                                          .id ==
+                                                      widget.movieList[0].id)
+                                                  ? true
+                                                  : false,
+                                              onPressed: () {
+                                                Navigator.pushNamed(context,
+                                                    MovieDetailsScreen.id,
+                                                    arguments: {
+                                                      'movieId': widget
+                                                          .movieList[index].id,
+                                                      'moviePoster':
+                                                          '${Constants.moviePosterBaseUrl}${widget.movieList[index].poster_url}',
+                                                      'topMovie': (widget
+                                                              .movieList[index]
+                                                              .id ==
+                                                          widget
+                                                              .movieList[0].id),
+                                                      'movieName': widget
+                                                          .movieList[index]
+                                                          .movie_name,
+                                                      'movieGenre': generics
+                                                          .genreNameFinder(
+                                                              widget.genreList,
+                                                              widget
+                                                                  .movieList[
+                                                                      index]
+                                                                  .genre_id_list),
+                                                      'releseYear': generics
+                                                          .releseYearFinder(
+                                                              widget
+                                                                  .movieList[
+                                                                      index]
+                                                                  .release_date),
+                                                      //There is no movie api in docs that shows movie runtime hence the static value
+                                                      'movieLength': '2h 5m',
+                                                      'movieRating': generics
+                                                          .movieRater(widget
+                                                              .movieList[index]
+                                                              .movie_rating),
+                                                      'movieDescription': widget
+                                                          .movieList[index]
+                                                          .movieDesc,
+                                                      'movieList':
+                                                          widget.movieList,
+                                                      'genreList':
+                                                          widget.genreList
+                                                    });
+                                              })),
                                       const SizedBox(
                                         height: 20.0,
                                       )

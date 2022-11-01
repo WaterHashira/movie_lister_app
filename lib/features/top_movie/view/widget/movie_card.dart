@@ -29,10 +29,8 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,7 +41,8 @@ class MovieCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                        posterImageUrl ?? Constants.defaultMoviePosterUrl),
+                      posterImageUrl ?? Constants.defaultMoviePosterUrl,
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -55,7 +54,7 @@ class MovieCard extends StatelessWidget {
                 color: (topMovie)
                     ? ColorConstants.activeCardColor
                     : ColorConstants.inactiveCardColor,
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -86,18 +85,18 @@ class MovieCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         movieName,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline5,
                       ),
                     ),
-                    const SizedBox(
-                      height: 3.0,
-                    ),
                     Text(
                       movieGenre,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headline4,
                     ),
                     Text(
                       releseYear,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headline4,
                     ),
                     const SizedBox(

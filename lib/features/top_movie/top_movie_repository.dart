@@ -27,7 +27,7 @@ class TopMovieRepository {
   Future<List<Movie>> getMovieList() async {
     final res = await dio.get('${Constants.apiBaseUrl}discover/movie',
         queryParameters: movieParams);
-    if (res.data != null) {
+    if (!res.data.isEmpty) {
       debugPrint(res.toString());
 
       List<Movie> topMovieList = (res.data['results'] as List)
@@ -42,7 +42,7 @@ class TopMovieRepository {
   Future<List<Genre>> getGenreList() async {
     final res = await dio.get('${Constants.apiBaseUrl}genre/movie/list',
         queryParameters: genreParams);
-    if (res.data != null) {
+    if (!res.data['genres'].isEmpty) {
       debugPrint(res.toString());
       return (res.data['genres'] as List)
           .map((genre) => Genre.fromJson(genre))
